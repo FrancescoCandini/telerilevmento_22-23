@@ -12,6 +12,10 @@ landsat2011 <- brick("p224r63_2011.grd") # così carichiamo velocemente il file 
 landsat2011 <- brick("C:/lab/p224r63_2011.grd") # altrimenti lo specifichiamo
 
 landsat2011 # vediamo le informazioni del file, abbiamo circa 3*10^7 dati (pixels)
+# Banda 1 = blu
+# Banda 2 = verde
+# Banda 3 = rosso
+# Banda 4 = infrarosso vicino (near infrared)
 
 plot(landsat2011) # plot generale X-Y, specificando gli assi (lo stesso file per noi)
 
