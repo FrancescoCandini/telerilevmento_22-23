@@ -106,5 +106,10 @@ plotRGB(landsat1988, r=4, g=3, b=2, stretch="lin") # alternativa senza nomi, ma 
 
 
 # Indici di vegetazione per misurare lo stato di salute delle piante e confronto nel tempo
+# Le piante in condizioni di stress le foglie cambiano colore, quindi anche la riflettanza
+# Different Vegetation Index (DVI) è un indice per la riflettanza (a date lunghezze d'onda) per ogni pixel vegetato
+# Il mesofillo fogliare cambia conformazione assorbendo meno rosso ed assorbirà più NIR
+
+
 
 
