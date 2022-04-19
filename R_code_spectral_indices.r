@@ -3,6 +3,7 @@
 library(raster)
 library(rgdal)
 library(RStoolbox)
+library(rasterdiv)
 
 setwd("C:/lab/") 
 
@@ -34,7 +35,7 @@ plotRGB(landsat2006 ,r=1, g=2, b=3, stretch="lin")
 
 dev.off()
 
-# Different Vegetation Index (DVI)
+# Different Vegetation Index (DVI), indica la quantità di vegetazione in un'area (quindin anche la biomassa)
 # DVI = NIR - red ; quindi il DVI (ad 8 bit) va da -255 a 255
 cl <- colorRampPalette(c("darkblue", "yellow", "red", "black")) (100)
 
@@ -87,5 +88,9 @@ plot(si1992) # plot di tutti gli indici possibili calcolabili, sia per naturalis
 si2006 <- spectralIndices(landsat2006, green=3, red=2, nir=1)
 plot(si2006)
 
+dev.off()
 
+# Necessario il pacchetto rasterdiv
+plot(copNDVI)
 
+#lez31marzo
