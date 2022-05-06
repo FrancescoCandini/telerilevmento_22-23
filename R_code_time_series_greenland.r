@@ -38,9 +38,6 @@ plot(tgr[[1]], col=cl) # plotto solo il 1o elemento di "tgr"
 
 plotRGB(tgr, r=1, g=2, b=3, strech="lin") # ERRORE
 
-# colorist package
+# colorist package utile per rappresentazioni grafiche
 
-
-
-
-#lez. 1/4 tempo 48:30
+# lezione 1/4
