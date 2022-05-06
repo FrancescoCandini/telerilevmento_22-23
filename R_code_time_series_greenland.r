@@ -1,4 +1,4 @@
-# Analisi in serie temporale della Groenlandia
+# Analisi in serie temporale delle temperature della Groenlandia
 
 library(raster)
 
@@ -31,13 +31,18 @@ plot(lst2015, col=cl)
 lista <- list.files(pattern = "lst_20") # creao una lista di files
 import <- lapply(lista, raster) # applico la funz. raster a tutti i files della lista
 
-tgr <- stack(import)  # funzione per aggregare tutti i files in uno singolo (simil immagine satellitare)
+TGr <- stack(import)  # funzione per aggregare tutti i files in uno singolo (simil immagine satellitare)
 
-plot(tgr, col=cl) # plottare tutti i files contemporaneamente
-plot(tgr[[1]], col=cl) # plotto solo il 1o elemento di "tgr"
+plot(TGr, col=cl) # plottare tutti i files contemporaneamente
+plot(TGr[[1]], col=cl) # plotto solo il 1o elemento di "tgr"
 
-plotRGB(tgr, r=1, g=2, b=3, strech="lin") # ERRORE
+plotRGB(TGr, 1, 2, 3, stretch="Lin")
+plotRGB(TGr, 2, 3, 4, stretch="Lin")
+plotRGB(TGr, 4, 3, 2, stretch="Lin")
 
 # colorist package utile per rappresentazioni grafiche
 
-# lezione 1/4
+
+
+
+# fine lez. 1/4 
