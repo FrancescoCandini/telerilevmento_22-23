@@ -55,4 +55,4 @@ plot(gcclass4$map, col=clc)
 plotRGB(gc, r=1, g=2, b=3, stretch="hist") # hist per avere un'immagine più chiara
 
 
-# fine lez. 8/4
+# fine lez. 21/4
