@@ -1,4 +1,4 @@
-# R code variability
+# R code variability (eterogeneità)
 
 # geologic variability of rocks
 # ecologically variability: different use of land
@@ -50,4 +50,60 @@ ggplot() + geom_raster(sd3, mapping = aes(x=x, y=y, fill=layer)) +
 
 sd7 <- focal(nir, matrix(1/49, 7, 3), fun=sd) # sd = standard deviation
 
-# Fine lezione 29/4, le due lez. successive sono uguali
+
+
+# Multivariate analysis (19/5)
+# It' possible to chose the component of the variability
+
+sen <- brick("sentinel_similaun.png")
+# 4 levels, 1 = nir, 2 = red, 3 = green, 4 = control
+ggRGB(sen, 1, 2, 3) # vegetation is red
+
+
+im1 <- ggRGB(sen, 2, 1, 3) # vegetation becomes green and rocks purple
+
+# Multivariate analysis
+sen_pca <- rasterPCA(sen)
+sen_pca
+# Many components: $call, $model and $map
+# How much variability explains the different components?
+summary(sen_pca$model) # there are also the comulative proportion
+plot(sen_pca$map) # the 4th model doesn't explain anything
+
+pc1 <- sen_pca$map$PC1
+pc2 <- sen_pca$map$PC2
+pc3 <- sen_pca$map$PC3
+
+ggplot() + geom_raster(pc1, mapping=aes(x=x, y=y, fill=PC1)) 
+# Different way to define the geometry, this is the most clean
+
+g1 <- ggplot() + geom_raster(pc1, mapping=aes(x=x, y=y, fill=PC1)) 
+g2 <- ggplot() + geom_raster(pc2, mapping=aes(x=x, y=y, fill=PC2)) 
+g3 <- ggplot() + geom_raster(pc3, mapping=aes(x=x, y=y, fill=PC3)) 
+
+g1 + g2 + g3
+
+# Standard deviation of pc1
+sd3_pc1 <- focal(pc1, matrix(1/9, 3, 3), fun=sd)
+sd3_pc1
+
+# Plot of standard deviation based on 1st principal components
+im3 <- ggplot() + geom_raster(sd3_pc1, mapping=aes(x=x, y=y, fill=layer)) +
+  scale_fill_viridis(option="inferno")
+# The last part of the code determine the legend colors
+
+# Mix of 3 different images
+im1 + g1 + im3
+
+# Variability calculated in 5x5 window
+sd5_pc1 <- focal(pc1, matrix(1/25, 5, 5), fun=sd)
+sd7_pc1 <- focal(pc1, matrix(1/49, 7, 7), fun=sd)
+
+im4 <- ggplot() + geom_raster(sd5_pc1, mapping=aes(x=x, y=y, fill=layer)) +
+  scale_fill_viridis(option="inferno")
+im5 <- ggplot() + geom_raster(sd7_pc1, mapping=aes(x=x, y=y, fill=layer)) +
+  scale_fill_viridis(option="inferno")
+
+im3 + im4 + im5 # difference between the details determined by the dimension of the window
+
+# fine lez. 19/5 next 2 lezioni silili/uguali
