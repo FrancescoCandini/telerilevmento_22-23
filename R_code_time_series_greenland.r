@@ -1,14 +1,13 @@
-# Analisi in serie temporale delle temperature della Groenlandia
-
+# Temporal analysis of temperature in Greenland
 library(raster)
 
 setwd("C:/lab/greenland")
 
-# La funzione "brick" caricare tutte le bande (di un'immagine completa) in R
+# Function "brick" to upload all the file/image in R
 
-lst2000 <- raster("lst_2000.tif") # funzione per importare immagini 
+lst2000 <- raster("lst_2000.tif") # function to import images
 
-lst2000 # immagine a 16bit
+lst2000 # image at 16bit
 
 plot(lst2000)
 
@@ -26,23 +25,18 @@ plot(lst2005, col=cl)
 plot(lst2010, col=cl)
 plot(lst2015, col=cl)
 
-# Come importare tutto il set di immagini contemporaneamente
+# How to import all the set of images at the same time
 
-lista <- list.files(pattern = "lst_20") # creao una lista di files
-import <- lapply(lista, raster) # applico la funz. raster a tutti i files della lista
+lista <- list.files(pattern = "lst_20") # I make a list of files with the same pattern in the name...
+import <- lapply(lista, raster) # ...and use the function raster to all the files in the list
 
-TGr <- stack(import)  # funzione per aggregare tutti i files in uno singolo (simil immagine satellitare)
+TGr <- stack(import)  # function to aggregate all files into a single one (similar to satellite image) 
 
-plot(TGr, col=cl) # plottare tutti i files contemporaneamente
-plot(TGr[[1]], col=cl) # plotto solo il 1o elemento di "tgr"
+plot(TGr, col=cl) # plot all files at the same time
+plot(TGr[[1]], col=cl) # plot only the 1st element of "tgr"
 
 plotRGB(TGr, 1, 2, 3, stretch="Lin")
 plotRGB(TGr, 2, 3, 4, stretch="Lin")
 plotRGB(TGr, 4, 3, 2, stretch="Lin")
 
-# colorist package utile per rappresentazioni grafiche
-
-
-
-
-# fine lez. 1/4 
+# colorist package is useful to make graphic rapresentations
