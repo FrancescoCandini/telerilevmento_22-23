@@ -4,3 +4,9 @@ library(raster) #
 library(RStoolbox) # 
 library(ggplot2) # 
 library(patchwork) # 
+
+setwd
+
+# Sentinel 2
+s2 <- raster
+
