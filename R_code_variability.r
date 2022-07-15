@@ -105,5 +105,3 @@ im5 <- ggplot() + geom_raster(sd7_pc1, mapping=aes(x=x, y=y, fill=layer)) +
   scale_fill_viridis(option="inferno")
 
 im3 + im4 + im5 # difference between the details determined by the dimension of the window
-
-# fine lez. 19/5 next 2 lezioni silili/uguali
