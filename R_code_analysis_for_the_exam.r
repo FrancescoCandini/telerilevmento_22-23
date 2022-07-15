@@ -26,10 +26,15 @@ rimp_14 <- lapply(rlist, raster)
 # Variable with all the images of 2014
 l_14 <- stack(rimp) 
 
-# Same process fot the images of 2018
+# Same process for the images of 2018
 rlist_18 <- list.files(pattern="LC08_L2SP_008047_20180909")
 rimp_18 <- lapply(rlist, raster)
 l_18 <- stack(rimp)
 
 plot(l_14)
 plot(l_18)
+
+
+
+
+
