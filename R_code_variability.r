@@ -5,10 +5,10 @@
 
 # install.packages("ggplot2")
 
-library(raster) # per l'importazione di raster
-library(RStoolbox) # per la classificazione
-library(ggplot2) # per visualizzare meglio i dati
-library(patchwork) # per facilitare la creazione di multiframe
+library(raster) # to import raster
+library(RStoolbox) # to make classifications
+library(ggplot2) # to better visualize the data (with plots)
+library(patchwork) # to build more easily multiframes
 library(viridis)
 
 setwd("C:/lab/") # set working directory, used to link a specific folder to the script
