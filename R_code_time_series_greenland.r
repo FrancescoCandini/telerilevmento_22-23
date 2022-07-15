@@ -15,8 +15,6 @@ lst2005 <- raster("lst_2005.tif")
 lst2010 <- raster("lst_2010.tif")
 lst2015 <- raster("lst_2015.tif")
 
-dev.off()
-
 cl <- colorRampPalette(c("blue", "light blue", "pink", "red")) (100)
 
 par(mfrow=c(2, 2))
