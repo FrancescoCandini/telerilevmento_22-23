@@ -1,33 +1,35 @@
-# Images of ..., the 1st was captured on ... and the 2nd on ...
+# Images captured by Landsat, the 1st was captured on 2014 and the 2nd on 2018
 
 # Landsat band 5 = NIR
-# 
+
+# Intro
 
 # install.packages("patchwork") and all the other packages
 
-library(raster) # 
-library(RStoolbox) # 
-library(ggplot2) # 
-library(patchwork) # 
+library(raster) # to import raster
+library(RStoolbox) # to make classifications
+library(ggplot2) # to better visualize the data (with plots)
+library(patchwork) # to build more easily multiframes
 library(viridis)
 
-setwd
+setwd("C:/landsat_data")
 
-# Sentinel 2
-s2 <- raster
-s2
+cl <- colorRampPalette(c("blue", "green", "pink", "magenta", 
+                           "orange", "brown", "red", "yellow"))(100)
 
-# Landsat
-l8 <- raster
-l8
+# List of all the file with the same pattern 
+rlist_14 <- list.files(pattern="LC08_L2SP_008047_20140101")
 
-# Landsat 8 images
-# LC08_L2SP_008047_20220702_20220707_02_T1
-# LC08_L2SP_008047_20220616_20220629_02_T1
-# LC09_L2SP_008047_20220608_20220610_02_T1
-# LC08_L2SP_008047_20220531_20220609_02_T1
-# LC09_L2SP_008047_20220523_20220525_02_T1
-# LC09_L2SP_008047_20220507_20220509_02_T1
-# ...
-# LC08_L2SP_008047_20181011_20200830_02_T1
-# LC08_L2SP_008047_20180909_20200830_02_T1
+# Application of the function "raster" to all the file of the list
+rimp_14 <- lapply(rlist, raster)
+
+# Variable with all the images of 2014
+l_14 <- stack(rimp) 
+
+# Same process fot the images of 2018
+rlist_18 <- list.files(pattern="LC08_L2SP_008047_20180909")
+rimp_18 <- lapply(rlist, raster)
+l_18 <- stack(rimp)
+
+plot(l_14)
+plot(l_18)
