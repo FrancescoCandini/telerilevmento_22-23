@@ -1,13 +1,13 @@
-# Cambiamenti nell'uso del suolo (o land cover)
+# Changes in land cover use
 
 # install.packages("patchwork")
 
-library(raster) # per l'importazione di raster
-library(RStoolbox) # per la classificazione
-library(ggplot2) # per visualizzare meglio i dati
-library(patchwork) # per facilitare la creazione di multiframe
+library(raster) # to import raster
+library(RStoolbox) # to make classifications
+library(ggplot2) # to better visualize the data (with plots)
+library(patchwork) # to build more easily multiframes
 
-setwd("C:/lab/defor") # set working directory; codice per caricare i dati nella cartella desiderata
+setwd("C:/lab/defor") # set working directory; code to link the folder where are our data
 
 l92 <- brick("defor1_.jpg")
 l06 <- brick("defor2_.jpg")
@@ -15,88 +15,81 @@ l06 <- brick("defor2_.jpg")
 plotRGB(l92, 1, 2, 3, stretch="lin")
 # NIR = 1; RED = 2; GREEN = 3
 
-# Plot di entrmbe le immagini satellitari
+# Plot of both the images
 par(mfrow=c(1, 2))
 plotRGB(l92, 1, 2, 3, stretch="lin")
 plotRGB(l06, 1, 2, 3, stretch="lin")
 
-# Classificazione delle due immagini
-
+# Display of the two images in RGB
 ggRGB(l92, 1, 2, 3, stretch="lin")
 ggRGB(l06, 1, 2, 3, stretch="lin")
 
-# Unire le due immagini, necessario il pacchetto patchwork
-
+# Multiframe of the 2 images, patchwork needed
 p1 <- ggRGB(l92, 1, 2, 3, stretch="lin")
 p2 <- ggRGB(l06, 1, 2, 3, stretch="lin")
 
-p1 + p2 # immagini affiancate grazie a patchwork
-p1 / p2 # immagini una sopra l'altra
+p1 + p2 # images side by side
+p1 / p2 # images on top of each other
 
-# Classificazione
-l92c <- unsuperClass(l92, nClasses = 2) # classi: foresta e suolo nudo + fiume (con detriti)
-l92c # è un modello, non una mappa, quindi si deve specificare $map
-plot(l92c$map) # classe 1 = foresta; classe 2 = suolo e fiume
-# Pixels campione scelti casualmente dal software per la creazione delle classi 
+# Classification
+l92c <- unsuperClass(l92, nClasses = 2) # classes: forest & land + river (with debris)
+l92c # it's a model, not a map, so we must add $map to take the right component of l92c
+plot(l92c$map) # class 1 = forest; class 2 = land and river
+# Random sampling pixels, chosen by R to build the classes 
 
-l06c <- unsuperClass(l06, nClasses = 2) # classi: foresta e suolo nudo; il fiume ha pochi detriti
+l06c <- unsuperClass(l06, nClasses = 2) # classes: forest and land; the river has dew debris
 plot(l06c$map)
 
-# Calcolo delle frequenze tramite tabelle
-freq(l92c$map) # classe 1: 305357 - classe 2: 35935
-freq(l06c$map) # classe 1: 178176 - classe 2: 164550
+# Frequencies calculated by tables ("tabelle")
+freq(l92c$map) # class 1: 305357 - class 2: 35935
+freq(l06c$map) # class 1: 178176 - class 2: 164550
 
-# Calcolo delle proporzioni tra le classi
-l92 # vedo il numero totale di pixels
-tot92 <- 341292 # n. tot di pixels dell'immagine
-prop_forest_92 <- 305357 /  tot92 # proporzione
-perc_forest_92 <- 305357 * 100 / tot92 # percentuale
+# Proportions
+l92 # see the total number of pixels
+tot92 <- 341292 # tot. number of pixels
+prop_forest_92 <- 305357 /  tot92 # proportion
+perc_forest_92 <- 305357 * 100 / tot92 # percentage (%)
 perc_forest_92
 
-perc_agr_92 <- 100 - perc_forest_92 # calcolo la percentuale agricola tramite sottrazione (ho solo 2 classi)
+perc_agr_92 <- 100 - perc_forest_92 # percentage of land cover by agricolture
 perc_agr_92
 
 l06
 tot06 <- 342726
-perc_forest_06 <- 178176 * 100 / tot06 # percentuale
+perc_forest_06 <- 178176 * 100 / tot06 # percentage
 perc_forest_06
 
 perc_agr_06 <- 100 - perc_forest_06 
 perc_agr_06
 
-# Dati finali:
+# Finale data:
 # perc_forest_92 = 89.47089 %
 # perc_forest_06 = 51.98789 %
 # perc_agr_92 = 10.52911 %
 # perc_agr_06 = 48.01211 %
 
-# La virgola si scrive col punto in inglese/amercicano
-
-# Dataframe: tabella righe * colonne
-# Creo le colonne (fields)
+# Dataframe: table rows * columns
 class <- c("Forest", "Agricolture")
 percent_1992 <- c(89.47089, 10.52911)
 percent_2006 <- c(51.98789, 48.01211)
 
 multitemporal <- data.frame(class, percent_1992, percent_2006)
 multitemporal
-View(multitemporal) # comando per visualizzare la tabella in modo più chiaro
+View(multitemporal) # command to see cleaner the table
 
 # 1992
 ggplot(multitemporal, aes(x=class, y=percent_1992, color=class)) +
   geom_bar(stat="identity", fill="white")
-# Creo un nuovo ggplot, imposto il dataframe come fonte dei dati, 
-# poi seleziono le colonne che costituiranno il grafico
-# Con il + indico la somma con un'altra funzione 
+# I build a ggplot, I set up the dataframe how data source,
+# after I select the columns that will make up the graph
+# + indicates to add another sunction
 
 # 2006
 ggplot(multitemporal, aes(x=class, y=percent_2006, color=class)) +
   geom_bar(stat="identity", fill="white")
 
-# Ottenere un pdf, lo troveremo nella cartella indicata all'inizio del codice
+# How to make a pdf. We will find it in the folder selected with "setwd" 
 pdf("percentages_2006.pdf")
 ggplot(multitemporal, aes(x=class, y=percent_2006, color=class)) +
   geom_bar(stat="identity", fill="white")
 dev.off()
-
-# fine lezione 28/4
