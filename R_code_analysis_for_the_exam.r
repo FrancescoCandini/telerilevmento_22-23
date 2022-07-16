@@ -13,11 +13,6 @@ library(viridis)
 
 setwd("C:/landsat_data")
 
-cl <- colorRampPalette(c("blue", "green", "pink", "magenta", 
-                           "orange", "brown", "red", "yellow"))(100)
-# Or
-cl <- colorRampPalette(c("darkblue", "yellow", "red", "black")) (100)
-
 # List of all the file with the same pattern 
 rlist_14 <- list.files(pattern="LC08_L2SP_008047_20140101")
 
