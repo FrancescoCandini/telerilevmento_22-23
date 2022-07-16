@@ -2,9 +2,6 @@
 
 
 
-# Intro
-
-
 library(raster) # to import raster
 library(RStoolbox) # to make classifications
 library(ggplot2) # to better visualize the data (with plots)
@@ -31,36 +28,38 @@ l_18 <- stack(rimp_18)
 # Band 3 - Green
 # Band 4 - Red 
 # Band 5 - Near Infrared (NIR)
-# Let's see the band 2 for exaple
-l_14[[2]]
-l_18[[2]]
 
-plot(l_14)
-plot(l_18)
+# Overview of the images
+l_14
+l_18
+# The min and max values of the bands are 0 and 65535, 
+# so these are 16 bit images (65536 vpossible values)
 
-####################################################################################
-####################################################################################
-# Plot RGB to visualize the colors we would see with our eyes
+# Plot of all the layers
+plot(l_14, col = magma(65536))
+plot(l_18, col = magma(65536))
+
+# Plot RGB with the correct bands in RGB
+# I used the linear stretch to visualize the images as we would see from space
+# And I used the histogram stretch to increase the contrast
 par(mfrow=c(2, 2))
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin",  main = "") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin",  main = "")
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="hist",  main = "") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="hist", main = "")
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="hist") 
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="hist")
+mtext("Linear stretch", side = 3, line = -1, outer = T)
+mtext("Histogram stretch", side = 3, line = -19, outer = T)
 
-dev.off()
-
-####################################################################################
-####################################################################################
-
-# Plot RGB to 
+# Plot RGB with NIR in red
 par(mfrow=c(1, 2))
-plotRGB(l_14 ,r=5, g=4, b=3, stretch="lin", main="My Title") 
-plotRGB(l_18 ,r=5, g=4, b=3, stretch="lin", main="My Title")
+plotRGB(l_14 ,r=5, g=4, b=3, stretch="lin") 
+plotRGB(l_18 ,r=5, g=4, b=3, stretch="lin")
 mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
 
 # Calculating the Different Vegetation Index (DVI)
 # It indicates the amount of vegetation in an area (therefore also the biomass)
-# DVI = NIR - red ; therefore DVI (at 16 bit) goes from -65535 to 65535 
+# DVI = NIR - red
+# DVI (at 16 bit) goes from -65535 to 65535 
 
 dvi_14 = l_14[[5]] - l_14[[4]]
 dvi_18 = l_18[[5]] - l_18[[4]]
@@ -70,7 +69,9 @@ par(mfrow=c(1, 2))
 plot(dvi_14, col = inferno(65536), main = "DVI 2014 Dominican Republic", axes = F)
 plot(dvi_18, col = inferno(65536), main = "DVI 2018 Dominican Republic", axes = F)
 
-dvi_dif = dvi_18 - dvi_14  # warning due to different image size
+# Calculating of the difference in DVI
+
+# dvi_dif = dvi_18 - dvi_14 # warning due to different image size
 
 # To not have this warning message we can do 
 # a resampling to have the same size for both images
@@ -79,23 +80,7 @@ dvi_perfect_dif = dvi_18r - dvi_14
 # But this is not necessary because the difference is 0.13% compared to dvi_14
 
 plot(dvi_perfect_dif, col = magma(65536), 
-     main = "DVI difference (2014-2018) Dominican Republic", axes = F)
+     main = "DVI difference (2014-2018), Dominican Republic", axes = F)
 # Higher values mean more vegetation in 2018 then in 2014
-
-
-
-####################################################################################
-####################################################################################
-par(mfrow=c(2, 3))
-plot(dvi_dif, col = mako(65536)) 
-plot(dvi_dif, col = inferno(65536)) 
-plot(dvi_dif, col = plasma(65536)) 
-plot(dvi_dif, col = magma(65536)) 
-plot(dvi_dif, col = rocket(65536)) 
-plot(dvi_dif, col = viridis(65536)) 
-
-dev.off()
-####################################################################################
-####################################################################################
 
 
