@@ -1,0 +1,155 @@
+% Comments need first a "%"
+% To write a %, a "\" in needed first
+% To use a function is needed a \ first
+
+\documentclass[a4paper, 12pt]{article} % function to determine the class of the document
+% Use [ ] to personalize the font size and the paper size 
+% There are so many ways to define the font size in small areas (see: https://it.overleaf.com/learn/latex/Font_sizes%2C_families%2C_and_styles )
+
+\usepackage[utf8]{inputenc} % function to upload the packages
+% Use [ ] to define the structures
+\usepackage{graphicx} % package for graphics, u can use "\textcolor{}" function
+\usepackage{color} % to use colors
+\newcommand{\tr}{\textcolor{red}} % to create a new function to use faster a command
+\usepackage{hyperref} % to link the references from text to figure or article
+\usepackage{lineno}
+\usepackage{listings} % use code in Latex
+\usepackage{natbib} % to make a semi-automatic reference section
+\usepackage{setspace} % to set the interline between objects
+% Exists a package to modify automatically the references, but it's quiet complicated
+\usepackage{natbib} % another package to facilitate the filling of bibliography 
+
+\linenumbers % to insert the number of lines
+% \doublespacing  to set a double interline (\usepackage{setspace} is needed)
+
+\title{Esempio di articolo telerilevamento 2022} % function to create the title of the pdf
+\author{Francesco Candini} % Author of the pdf
+\date{July 2022} % Automatic (last compilation) or manual
+
+\begin{document} % begin of the document, it needs an "end" in bottom
+
+\maketitle
+
+% Abstract and keywords
+\begin{abstract}
+   \centering This is a perfect abstract. 
+\end{abstract}
+
+\noindent \textbf{Keywords:  biodiversity; ecology; magic} % keywords alphabetically ordered
+% \textbf{} to make font bold (grassetto)
+
+\tableofcontents % after "\begin{document}" and "\maketitle"
+
+% Abstract
+% Keywords
+
+
+\section{Introduction} \label{Sec.: Intro} % make a reference to the section Introduction
+
+
+Bla bla bla. % with \\ it makes a white line before the rest of the text
+% It's possible to use also the functions "\bigskip" or "\smallskip"
+
+Lol, it's Latex time. % automatic indent, to remove it use "\noindent" function
+
+\bigskip\noindent{\tiny{Look how small i am...}}
+
+\textcolor{green}{Amazing}
+
+\noindent{I} can joke showing you some \Large{\tr{really important data}}
+
+
+\section{Study area}
+
+
+\normalsize You Only Live Once, Y.O.L.O. 
+
+Nice hvhuiauvivhuòhv (Figure \ref{Fig.: Magic}) and uvaguyahuegabr. % "\ref" to make references
+% Function "\newpage" to use another page
+\begin{figure}
+ \includegraphics[width=0.35\textwidth]{magic the gathering.jpeg} 
+ % problems with the size, so i modify the structures with []
+ \centering % to center the image in the paper
+ \caption{Nice pic!} % to write the caption (didascalia)
+ \label{Fig.: Magic} % automatic label (etichetta)
+\end{figure}
+
+
+\section{Methods}
+
+
+First I'll explain the formulas and then I will pass to the code.
+Let's see a bulleted list: 
+\begin{itemize}
+    \item The \ref{Eq.: Newton}
+    \item The \ref{Eq.: Fantasy}
+    \item The code
+\end{itemize}
+Numerated list:
+\begin{enumerate}
+    \item The \ref{Eq.: Newton}
+    \item The \ref{Eq.: Fantasy}
+    \item The code (in subsection \ref{Code: 1})
+\end{enumerate}
+
+
+\subsection{Formulas}
+Here is the formula used in this manuscript.
+\begin{equation}
+    F = G \frac{m_{1} \times m_2}{d^2} % subscript with _{} and apex with ^{} 
+    % (not mandatory the {} if it's only 1 symbol)
+    % function \times to write the x
+    \label{Eq.: Newton}
+\end{equation}
+
+Let's invent an equation:
+\begin{equation}
+    A = \frac{\sqrt[3]{b \frac{c_{1} \times c_{2}}{\sqrt{d^{5\mu}}}}}{-\sum_{i}^{2000}{p(E) \times \log{p(E)}}} 
+    % \sqrt[...] to choose the number, \sum to make a summation with apex and subscription
+    % see on wiki how to write the greek letters
+    \label{Eq.: Fantasy}
+\end{equation}
+
+\noindent Let's put a formula directly in the main text. 
+
+\noindent We can apply this: $ F = G \frac{m_{1} \times m_2}{d^2} $
+
+
+\subsection{Code}
+Here is the code used in this manuscript.
+\lstinputlisting[language = R]{R Narcissus tazetta.r}  
+
+
+\section{Results}
+
+
+These results were achieved according to Equation \ref{Eq.: Newton} and C
+
+
+\section{Discussion}
+
+
+As we've seen in section \ref{Sec.: Intro}
+
+\noindent Our results are in line with \citep{Alternative_C._Gatti_2015}  % same use of \ref, but specific for citations
+
+\noindent Bla bla bla, this thing is very important \citep{Alternative_C._Gatti_2015} %\citep{} 
+
+\noindent \citet{Alternative_C._Gatti_2015} told us that this thing is very important %
+
+\noindent \citet{Alternative_C._Gatti_2015, Sabatini_2018} % order of citations from older to the most recent!
+
+
+\section{Conclusion}
+
+
+\begin{thebibliography}{999} % 999 is a code 
+\bibitem{C._Gatti_2015}
+Cazzolla Gatti, R., Castaldi, S., Lindsell, J.A. et al. The impact of selective logging and clearcutting on forest structure, tree diversity and above-ground biomass of African tropical forests. Ecol Res 30, 119–132 (2015). \url{https://doi.org/10.1007/s11284-014-1217-3} % \url{} to make a link 
+\bibitem[C. Gatti et al.(2015)]{Alternative_C._Gatti_2015}
+Cazzolla Gatti, R., Castaldi, S., Lindsell, J.A. et al. The impact of selective logging and clearcutting on forest structure, tree diversity and above-ground biomass of African tropical forests. Ecol Res 30, 119–132 (2015). \url{https://doi.org/10.1007/s11284-014-1217-3}
+\bibitem[Sabatini et al.(2018)]{Sabatini_2018}
+Sabatini, FM, Burrascano, S, Keeton, WS, et al. Where are Europe’s last primary forests? Divers Distrib. 2018; 24: 1426– 1439. \url{https://doi.org/10.1111/ddi.12778}
+\end{thebibliography}
+
+\end{document}
