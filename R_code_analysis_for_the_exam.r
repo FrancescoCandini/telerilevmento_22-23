@@ -36,8 +36,8 @@ l_18
 # so these are 16 bit images (65536 vpossible values)
 
 # Plot of all the layers
-plot(l_14, col = magma(65536))
-plot(l_18, col = magma(65536))
+plot(l_14, col = magma(65536), axes = F)
+plot(l_18, col = magma(65536), axes = F)
 
 # Plot RGB with the correct bands in RGB
 # I used the linear stretch to visualize the images as we would see from space
@@ -64,23 +64,100 @@ mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
 dvi_14 = l_14[[5]] - l_14[[4]]
 dvi_18 = l_18[[5]] - l_18[[4]]
 
+par(mfrow=c(2, 2))
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin")
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")  
+plot(dvi_14, col = magma(65536), axes = F)
+plot(dvi_18, col = magma(65536), axes = F)
+
 # Plot to compare the situations od DVI
 par(mfrow=c(1, 2))
-plot(dvi_14, col = inferno(65536), main = "DVI 2014 Dominican Republic", axes = F)
-plot(dvi_18, col = inferno(65536), main = "DVI 2018 Dominican Republic", axes = F)
+plot(dvi_14, col = magma(65536), main = "DVI 2014 Dominican Republic", axes = F)
+plot(dvi_18, col = magma(65536), main = "DVI 2018 Dominican Republic", axes = F)
 
 # Calculating of the difference in DVI
 
-# dvi_dif = dvi_18 - dvi_14 # warning due to different image size
+# dvi_dif = dvi_18 - dvi_14 # warning due to different image extents
 
 # To not have this warning message we can do 
-# a resampling to have the same size for both images
+# a resampling to have the same size and the same extents for both images
 dvi_18r <- resample(dvi_18, dvi_14)
 dvi_perfect_dif = dvi_18r - dvi_14
-# But this is not necessary because the difference is 0.13% compared to dvi_14
 
+# It's not necessary to use the DVI standardized (NDVI) 
+# because both the images are al 16 bit 
+
+# Plot of the difference in DIV 
 plot(dvi_perfect_dif, col = magma(65536), 
      main = "DVI difference (2014-2018), Dominican Republic", axes = F)
 # Higher values mean more vegetation in 2018 then in 2014
+
+
+
+# Automatic calculation of the spectral indices (RStoolbox needed)
+si_18 <- spectralIndices(l_18, blue=2, green=3, red=4, nir=5)
+# Plot of all possible computable indices, both for naturalists and geologists
+plot(si_18, col = magma(65536))
+
+# Same for 2014
+si_14 <- spectralIndices(l_14, blue=2, green=3, red=4, nir=5)
+plot(si_14) # plot of all possible computable indices, both for naturalists and geologists
+
+
+
+####################################################################################
+####################### END SPECTRAL INDICES #######################################
+####################################################################################
+
+
+
+# BEGIN VARIABILITY
+
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
+ggRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
+
+nir_14 <- l_14[[5]]
+nir_18 <- l_18[[5]]
+
+# Standard Deviation
+stdev_14 <- focal(nir_14, matrix(1/2500, 50, 50), fun=sd)
+stdev_18 <- focal(nir_18, matrix(1/2500, 50, 50), fun=sd)
+
+# Plot to see the areas with more or less variability
+plot(stdev_14, col=mako(65536))
+plot(stdev_18, col=mako(65536))
+
+
+
+
+
+
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+####################################################################################
+####################################################################################
+# Choosing of the best Color Scale
+
+par(mfrow=c(2, 3))
+plot(dvi_dif, col = mako(65536)) 
+plot(dvi_dif, col = inferno(65536)) 
+plot(dvi_dif, col = plasma(65536)) 
+plot(dvi_dif, col = magma(65536)) 
+plot(dvi_dif, col = rocket(65536)) 
+plot(dvi_dif, col = viridis(65536)) 
+
+dev.off()
+####################################################################################
+####################################################################################
 
 
