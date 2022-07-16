@@ -47,17 +47,21 @@ plot(l_18)
 ####################################################################################
 # Plot RGB to visualize the colors we would see with our eyes
 par(mfrow=c(2, 2))
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="hist") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="hist")
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin",  main = "") 
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin",  main = "")
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="hist",  main = "") 
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="hist", main = "")
+
+dev.off()
+
 ####################################################################################
 ####################################################################################
 
 # Plot RGB to 
 par(mfrow=c(1, 2))
-plotRGB(l_14 ,r=5, g=4, b=3, stretch="lin") 
-plotRGB(l_18 ,r=5, g=4, b=3, stretch="lin")
+plotRGB(l_14 ,r=5, g=4, b=3, stretch="lin", main="My Title") 
+plotRGB(l_18 ,r=5, g=4, b=3, stretch="lin", main="My Title")
+mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
 
 # Calculating the Different Vegetation Index (DVI)
 # It indicates the amount of vegetation in an area (therefore also the biomass)
@@ -68,8 +72,8 @@ dvi_18 = l_18[[5]] - l_18[[4]]
 
 # Plot to compare the situations od DVI
 par(mfrow=c(1, 2))
-plot(dvi_14, col = inferno(65536), main = "DVI 2014 Dominican Republic")
-plot(dvi_18, col = inferno(65536), main = "DVI 2018 Dominican Republic")
+plot(dvi_14, col = inferno(65536), main = "DVI 2014 Dominican Republic", axes = F)
+plot(dvi_18, col = inferno(65536), main = "DVI 2018 Dominican Republic", axes = F)
 
 dvi_dif = dvi_18 - dvi_14  # warning due to different image size
 
