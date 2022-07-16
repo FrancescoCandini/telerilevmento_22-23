@@ -32,7 +32,7 @@ par(mfrow=c(2, 1))
 plotRGB(landsat1992 ,r=1, g=2, b=3, stretch="lin")
 plotRGB(landsat2006 ,r=1, g=2, b=3, stretch="lin")
 
-# dev.off() to close the grahic processes
+# dev.off() to close the graphic processes
 
 # Different Vegetation Index (DVI),  indicates the amount of vegetation in an area (therefore also the biomass)
 # DVI = NIR - red ; theerefore DVI (at 8 bit) goes from -255 to 255
