@@ -116,11 +116,11 @@ plot(si_14) # plot of all possible computable indices, both for naturalists and 
 plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
 ggRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
 
-nir_14 <- l_14[[5]]
+nir_14 <- l_14 # dimensions : 7831, 7681, 60149911  (nrow, ncol, ncell)
 nir_18 <- l_18[[5]]
 
 # Standard Deviation
-stdev_14 <- focal(nir_14, matrix(1/2500, 50, 50), fun=sd)
+stdev_14 <- focal(nir_14, matrix(1/13455, 117, 115), fun=sd)
 stdev_18 <- focal(nir_18, matrix(1/2500, 50, 50), fun=sd)
 
 # Plot to see the areas with more or less variability
