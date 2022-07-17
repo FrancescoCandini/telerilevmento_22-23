@@ -34,7 +34,13 @@ plotRGB(landsat2006 ,r=1, g=2, b=3, stretch="lin")
 
 # dev.off() to close the graphic processes
 
-# Different Vegetation Index (DVI),  indicates the amount of vegetation in an area (therefore also the biomass)
+
+
+# Vegetation Index to study the health of the vegetation and compare in different times
+# Plants in stress conditions have different color in leafs, so the reflectance changes
+# The Different Vegetation Index (DVI) works with reflectance in every pixel
+
+# Different Vegetation Index (DVI),  indicates also the amount of vegetation in an area (therefore also the biomass)
 # DVI = NIR - red ; theerefore DVI (at 8 bit) goes from -255 to 255
 cl <- colorRampPalette(c("darkblue", "yellow", "red", "black")) (100)
 
