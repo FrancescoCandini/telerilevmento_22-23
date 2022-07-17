@@ -33,7 +33,7 @@ l_18 <- stack(rimp_18)
 l_14
 l_18
 # The min and max values of the bands are 0 and 65535, 
-# so these are 16 bit images (65536 vpossible values)
+# so these are 16 bit images (65536 possible values)
 
 # Plot of all the layers
 plot(l_14, col = magma(65536), axes = F)
@@ -57,43 +57,76 @@ plotRGB(l_18 , r=5, g=4, b=3, stretch="lin")
 mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
 
 
+####################################################################################
+########################## CLASSIFICATION ##########################################
+####################################################################################
 
-# BEGIN CLASSIFICATION
+
 
 # Classification in classes
-l_14_c <- unsuperClass(l_14, nClasses=3)
-l_18_c <- unsuperClass(l_18, nClasses=3)
+l_14_c <- unsuperClass(l_14, nClasses = 5)
+l_18_c <- unsuperClass(l_18, nClasses = 5)
 
 l_14_c
 l_18_c
 
 par(mfrow=c(1, 2))
-plot(l_14_c , col = magma(65536)) 
-plot(l_18_c , col = magma(65536))
-mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
+plot(l_14_c$map , col = viridis(65536), axes = F) 
+plot(l_18_c$map , col = viridis(65536), axes = F)
+mtext("Plot with classification ", side = 3, line = -1, outer = T)
+
+cl <- colorRampPalette(c('yellow', 'black'))(5)
+
+# Comparing the RGB images with the classified images
+par(mfrow=c(2, 2))
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
+plot(l_14_c$map , col = magma(65536), axes = F) 
+plot(l_18_c$map , col = rev(magma(65536)), axes = F) 
+# I used the reversed color scale to have the see with the same color
+
+par(mfrow=c(2, 2))
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
+plot(l_14_c$map , col = viridis(5), axes = F) 
+plot(l_18_c$map , col = rev(viridis(5)), axes = F) 
 
 
 
+################################ TEST .......................................
+
+l_14_c2 <- unsuperClass(l_14, nClasses = 2)
+l_18_c2 <- unsuperClass(l_18, nClasses = 2)
+
+l_14_c3 <- unsuperClass(l_14, nClasses = 3)
+l_18_c3 <- unsuperClass(l_18, nClasses = 3)
+
+l_14_c4 <- unsuperClass(l_14, nClasses = 4)
+l_18_c4 <- unsuperClass(l_18, nClasses = 4)
+
+l_14_c5 <- unsuperClass(l_14, nClasses = 5)
+l_18_c5 <- unsuperClass(l_18, nClasses = 5)
+
+par(mfrow=c(2, 2))
+plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
+plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
+plot(l_14_c2$map , col = viridis(2), axes = F) # possible use to measure the cloud cover
+plot(l_18_c2$map , col = viridis(2), axes = F)
+plot(l_14_c3$map , col = viridis(3), axes = F) 
+plot(l_18_c3$map , col = viridis(3), axes = F)
+plot(l_14_c4$map , col = viridis(4), axes = F) 
+plot(l_18_c4$map , col = viridis(4), axes = F) 
+plot(l_14_c5$map , col = rev(viridis(5)), axes = F) 
+plot(l_18_c5$map , col = rev(viridis(5)), axes = F) 
+
+############################## END TEST ............................................
 
 
 
+freq(l_14_c$map)
+freq(l_18_c$map)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Continua se le immagini lo permettono.............................................
 
 
 
@@ -103,13 +136,18 @@ mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
 dev.off()
 
 
+
+
+
+
+
+
+
 ####################################################################################
-######################## END CLASSIFICATION ########################################
+######################### SPECTRAL INDICES #########################################
 ####################################################################################
 
 
-
-# BEGIN VARIABILITY
 
 # Calculating the Different Vegetation Index (DVI)
 # It indicates the amount of vegetation in an area (therefore also the biomass)
@@ -161,15 +199,10 @@ plot(si_14) # plot of all possible computable indices, both for naturalists and 
 
 
 ####################################################################################
-####################### END SPECTRAL INDICES #######################################
+########################### VARIABILITY ############################################
 ####################################################################################
 
 
-
-# BEGIN VARIABILITY
-
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
-ggRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
 
 nir_14 <- l_14[[5]] # dimensions : 7831, 7681, 60149911  (nrow, ncol, ncell)
 nir_18 <- l_18[[5]]
@@ -188,11 +221,7 @@ stdev_18 <- focal(nir_18_agg, matrix(1/25, 5, 5), fun=sd)
 plot(stdev_14, col=mako(65536), axes = F)
 plot(stdev_18, col=mako(65536), axes = F)
 
-#################################################################################### not cute
-# ggplot() + geom_raster(stdev_14, mapping = aes(x=x, y=y, fill=layer)) +
- # scale_fill_viridis(option = "mako") + ggtitle("Standard deviation 2014")
-# ggplot() + geom_raster(stdev_18, mapping = aes(x=x, y=y, fill=layer)) +
- # scale_fill_viridis(option = "mako") + ggtitle("Standard deviation 2014")
+
 
 ####################################################################################
 ########################## END VARIABILITY #########################################
@@ -208,12 +237,12 @@ plot(stdev_18, col=mako(65536), axes = F)
 # Choosing of the best Color Scale
 
 par(mfrow=c(2, 3))
-plot(dvi_dif, col = mako(65536)) 
-plot(dvi_dif, col = inferno(65536)) 
-plot(dvi_dif, col = plasma(65536)) 
-plot(dvi_dif, col = magma(65536)) 
-plot(dvi_dif, col = rocket(65536)) 
-plot(dvi_dif, col = viridis(65536)) 
+plot(dvi_dif, col = mako(65536), axes = F) 
+plot(dvi_dif, col = inferno(65536), axes = F) 
+plot(dvi_dif, col = plasma(65536), axes = F) 
+plot(dvi_dif, col = magma(65536), axes = F) 
+plot(dvi_dif, col = rocket(65536), axes = F) 
+plot(dvi_dif, col = viridis(65536), axes = F) 
 
 dev.off()
 ####################################################################################
