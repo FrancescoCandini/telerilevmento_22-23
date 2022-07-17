@@ -52,9 +52,64 @@ mtext("Histogram stretch", side = 3, line = -19, outer = T)
 
 # Plot RGB with NIR in red
 par(mfrow=c(1, 2))
-plotRGB(l_14 ,r=5, g=4, b=3, stretch="lin") 
-plotRGB(l_18 ,r=5, g=4, b=3, stretch="lin")
+plotRGB(l_14 , r=5, g=4, b=3, stretch="lin") 
+plotRGB(l_18 , r=5, g=4, b=3, stretch="lin")
 mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
+
+
+
+# BEGIN CLASSIFICATION
+
+# Classification in classes
+l_14_c <- unsuperClass(l_14, nClasses=3)
+l_18_c <- unsuperClass(l_18, nClasses=3)
+
+l_14_c
+l_18_c
+
+par(mfrow=c(1, 2))
+plot(l_14_c , col = magma(65536)) 
+plot(l_18_c , col = magma(65536))
+mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dev.off()
+
+
+####################################################################################
+######################## END CLASSIFICATION ########################################
+####################################################################################
+
+
+
+# BEGIN VARIABILITY
 
 # Calculating the Different Vegetation Index (DVI)
 # It indicates the amount of vegetation in an area (therefore also the biomass)
@@ -116,28 +171,32 @@ plot(si_14) # plot of all possible computable indices, both for naturalists and 
 plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
 ggRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
 
-nir_14 <- l_14 # dimensions : 7831, 7681, 60149911  (nrow, ncol, ncell)
+nir_14 <- l_14[[5]] # dimensions : 7831, 7681, 60149911  (nrow, ncol, ncell)
 nir_18 <- l_18[[5]]
 
+# Aggregate from 30x30 resolution to 150x150 (factor = 4) to make less heavy the next step
+nir_14_agg <- aggregate(nir_14, fact = 5)
+nir_18_agg <- aggregate(nir_18, fact = 5)
+nir_14_agg
+nir_18_agg
+
 # Standard Deviation
-stdev_14 <- focal(nir_14, matrix(1/13455, 117, 115), fun=sd)
-stdev_18 <- focal(nir_18, matrix(1/2500, 50, 50), fun=sd)
+stdev_14 <- focal(nir_14_agg, matrix(1/25, 5, 5), fun=sd)
+stdev_18 <- focal(nir_18_agg, matrix(1/25, 5, 5), fun=sd)
 
 # Plot to see the areas with more or less variability
-plot(stdev_14, col=mako(65536))
-plot(stdev_18, col=mako(65536))
+plot(stdev_14, col=mako(65536), axes = F)
+plot(stdev_18, col=mako(65536), axes = F)
 
+#################################################################################### not cute
+# ggplot() + geom_raster(stdev_14, mapping = aes(x=x, y=y, fill=layer)) +
+ # scale_fill_viridis(option = "mako") + ggtitle("Standard deviation 2014")
+# ggplot() + geom_raster(stdev_18, mapping = aes(x=x, y=y, fill=layer)) +
+ # scale_fill_viridis(option = "mako") + ggtitle("Standard deviation 2014")
 
-
-
-
-
-
-dev.off()
-
-
-
-
+####################################################################################
+########################## END VARIABILITY #########################################
+####################################################################################
 
 
 
