@@ -1,12 +1,10 @@
-# Images captured by Landsat, the 1st was captured on 2014 and the 2nd on 2018
-
-
+# R code to analyze 2 satellite images
 
 library(raster) # to import raster
 library(RStoolbox) # to make classifications
 library(ggplot2) # to better visualize the data (with plots)
 library(patchwork) # to build more easily multiframes
-library(viridis)
+library(viridis) # to use color scales to improve graph readability for who has some forms of color vision deficiency
 
 setwd("C:/landsat_data")
 
@@ -223,9 +221,6 @@ plot(stdev_18, col=mako(65536), axes = F)
 
 
 
-####################################################################################
-########################## END VARIABILITY #########################################
-####################################################################################
 
 
 
