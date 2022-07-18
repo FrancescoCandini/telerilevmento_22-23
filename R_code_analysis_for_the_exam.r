@@ -64,7 +64,7 @@ mtext("2014                                                                     
 
 
 
-# Classification in different n. of classes
+# Unsupervised classification in different n. of classes
 l_14_c3 <- unsuperClass(l_14, nClasses = 3)
 l_18_c3 <- unsuperClass(l_18, nClasses = 3)
 
@@ -99,11 +99,11 @@ par(mfrow=c(2, 4))
 plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
 plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
 plot(l_14_c3$map , col = viridis(3), axes = F) 
-plot(l_18_c3$map , col = rev(viridis(3)), axes = F)
+plot(l_18_c3$map , col = viridis(3), axes = F)
 plot(l_14_c4$map , col = viridis(4), axes = F) 
 plot(l_18_c4$map , col = viridis(4), axes = F) 
-plot(l_14_c5$map , col = rev(viridis(5)), axes = F) 
-plot(l_18_c5$map , col = rev(viridis(5)), axes = F) 
+plot(l_14_c5$map , col = viridis(5), axes = F) 
+plot(l_18_c5$map , col = viridis(5), axes = F) 
 
 ####################################################################################################
 # Cloud cover
@@ -145,6 +145,19 @@ water_14 <- 8463771 / 60149911 * 100
 water_18 <- 6166354 / 60149911 * 100
 water_14
 water_18
+
+# We can do one more ...
+
+
+
+
+
+
+
+
+
+
+
 
 
 
