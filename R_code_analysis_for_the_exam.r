@@ -105,26 +105,6 @@ plot(l_18_c4$map , col = viridis(4), axes = F)
 plot(l_14_c5$map , col = viridis(5), axes = F) 
 plot(l_18_c5$map , col = viridis(5), axes = F) 
 
-####################################################################################################
-# Cloud cover
-# I'll use the 4 classes plot 
-par(mfrow=c(2, 2))
-plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
-plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
-plot(l_14_c4$map , col = viridis(4), axes = F) 
-plot(l_18_c4$map , col = viridis(4), axes = F)
-mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
-
-# Frequencies of the 4 classes and the NA pixels
-freq(l_14_c4$map)
-freq(l_18_c4$map)
-
-# Percentage of the cloud cover class 1 (2014) and classes 3 and 4 (2018)
-clouds_14 <- 456430 / 60149911 * 100
-clouds_18 <- (3205153 + 2007589) / 60071601 * 100
-clouds_14
-clouds_18
-####################################################################################################
 
 # Water cover (see and lakes)
 # I'll use the 4 classes plot 
@@ -145,19 +125,6 @@ water_14 <- 8463771 / 60149911 * 100
 water_18 <- 6166354 / 60149911 * 100
 water_14
 water_18
-
-# We can do one more ...
-
-
-
-
-
-
-
-
-
-
-
 
 
 
