@@ -73,7 +73,7 @@ l_18_c4 <- unsuperClass(l_18, nClasses = 4)
 l_14_c5 <- unsuperClass(l_14, nClasses = 5)
 l_18_c5 <- unsuperClass(l_18, nClasses = 5)
 
-# Let's see for example these 
+# Let's see for example the classification in 5 classes 
 l_14_c5
 l_18_c5
 
@@ -87,28 +87,10 @@ mtext("Plot with 5 classes", side = 3, line = -1, outer = T)
 par(mfrow=c(2, 2))
 plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
 plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
-plot(l_14_c$map , col = magma(65536), axes = F) 
-plot(l_18_c$map , col = rev(magma(65536)), axes = F) 
+plot(l_14_c5$map , col = viridis(5), axes = F) 
+plot(l_18_c5$map , col = rev(viridis(5)), axes = F)
+mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
 # I used the reversed color scale to have the see with the same color
-
-par(mfrow=c(2, 2))
-plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
-plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
-plot(l_14_c$map , col = viridis(5), axes = F) 
-plot(l_18_c$map , col = rev(viridis(5)), axes = F) 
-
-
-
-################################ TEST .......................................
-
-l_14_c3 <- unsuperClass(l_14, nClasses = 3)
-l_18_c3 <- unsuperClass(l_18, nClasses = 3)
-
-l_14_c4 <- unsuperClass(l_14, nClasses = 4)
-l_18_c4 <- unsuperClass(l_18, nClasses = 4)
-
-l_14_c5 <- unsuperClass(l_14, nClasses = 5)
-l_18_c5 <- unsuperClass(l_18, nClasses = 5)
 
 # Personalize the command "par" to build a matrix and plot the images that you need 
 par(mfrow=c(2, 4))
@@ -121,31 +103,28 @@ plot(l_18_c4$map , col = viridis(4), axes = F)
 plot(l_14_c5$map , col = rev(viridis(5)), axes = F) 
 plot(l_18_c5$map , col = rev(viridis(5)), axes = F) 
 
-############################## END TEST ............................................
-
-
-
-# I use the classification in 2 classes to measure the cloud cover
-l_14_c2 <- unsuperClass(l_14, nClasses = 2)
-l_18_c2 <- unsuperClass(l_18, nClasses = 2)
-
+# Cloud cover
+# I'll use the 4 classes plot 
 par(mfrow=c(2, 2))
 plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
 plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
-plot(l_14_c2$map , col = viridis(2), axes = F) 
-plot(l_18_c2$map , col = viridis(2), axes = F)
+plot(l_14_c4$map , col = viridis(4), axes = F) 
+plot(l_18_c4$map , col = viridis(4), axes = F)
+mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
 
-# I calculate the frequencies of the 2 classes and the NA pixels
-freq(l_14_c2$map)
-freq(l_18_c2$map)
+# Frequencies of the 4 classes and the NA pixels
+freq(l_14_c4$map)
+freq(l_18_c4$map)
 
-# In the end I calculate the percentage of the cloud cover (class 2)
-clouds_14 <- 926022 / 60149911 * 100
-clouds_18 <- 4367844 / 60071601 * 100
+# I assume that the clouds are in class 1 (2014) and in classes 3 and 4 (2018)
+
+# Percentage of the cloud cover (class 2)
+clouds_14 <- 456430 / 60149911 * 100
+clouds_18 <- (3205153 + 2007589) / 60071601 * 100
 clouds_14
 clouds_18
 
-# Now do the same thing to measure the water cover
+# Now do the same thing to measure the water cover ------------------------------------------------
 l_14_c3 <- unsuperClass(l_14, nClasses = 3)
 l_18_c3 <- unsuperClass(l_18, nClasses = 3)
 
