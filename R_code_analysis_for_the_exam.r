@@ -225,6 +225,6 @@ stdev_18 <- focal(nir_18_agg, matrix(1/25, 5, 5), fun=sd)
 
 # Plot to see the areas with more or less variability
 par(mfrow=c(1, 2))
-plot(stdev_14, col=mako(65536), axes = F)
-plot(stdev_18, col=mako(65536), axes = F)
-mtext("2014                                                                                                            2018", side = 3, line = -3, outer = T)
+plot(stdev_14, col = mako(65536), axes = F)
+plot(stdev_18, col = mako(65536), axes = F)
+mtext("2014                                                                                                                 2018", side = 3, line = -3, outer = T)
