@@ -22,10 +22,10 @@ rlist_18 <- list.files(pattern="LC08_L2SP_008047_20180909")
 rimp_18 <- lapply(rlist_18, raster)
 l_18 <- stack(rimp_18)
 
-# Band 2 - Blue
-# Band 3 - Green
-# Band 4 - Red 
-# Band 5 - Near Infrared (NIR)
+# Band 2 (element 1) - Blue
+# Band 3 (element 2) - Green
+# Band 4 (element 3) - Red 
+# Band 5 (element 4) - Near Infrared (NIR)
 
 # Overview of the images
 l_14
@@ -41,18 +41,20 @@ plot(l_18, col = magma(65536), axes = F)
 # I used the linear stretch to visualize the images as we would see from space
 # And I used the histogram stretch to increase the contrast
 par(mfrow=c(2, 2))
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="hist") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="hist")
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
+plotRGB(l_14 , r=3, g=2, b=1, stretch="hist") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="hist")
 mtext("Linear stretch", side = 3, line = -1, outer = T)
 mtext("Histogram stretch", side = 3, line = -19, outer = T)
+mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
 
 # Plot RGB with NIR in red
 par(mfrow=c(1, 2))
-plotRGB(l_14 , r=5, g=4, b=3, stretch="lin") 
-plotRGB(l_18 , r=5, g=4, b=3, stretch="lin")
+plotRGB(l_14 , r=4, g=3, b=2, stretch="lin") 
+plotRGB(l_18 , r=4, g=3, b=2, stretch="lin")
 mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
+mtext("2014                                                                                                            2018", side = 3, line = -3, outer = T)
 
 
 ####################################################################################
@@ -61,9 +63,15 @@ mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
 
 
 
-# Classification in classes
-l_14_c <- unsuperClass(l_14, nClasses = 5)
-l_18_c <- unsuperClass(l_18, nClasses = 5)
+# Classification in different n. of classes
+l_14_c3 <- unsuperClass(l_14, nClasses = 3)
+l_18_c3 <- unsuperClass(l_18, nClasses = 3)
+
+l_14_c4 <- unsuperClass(l_14, nClasses = 4)
+l_18_c4 <- unsuperClass(l_18, nClasses = 4)
+
+l_14_c5 <- unsuperClass(l_14, nClasses = 5)
+l_18_c5 <- unsuperClass(l_18, nClasses = 5)
 
 l_14_c
 l_18_c
@@ -73,28 +81,23 @@ plot(l_14_c$map , col = viridis(65536), axes = F)
 plot(l_18_c$map , col = viridis(65536), axes = F)
 mtext("Plot with classification ", side = 3, line = -1, outer = T)
 
-cl <- colorRampPalette(c('yellow', 'black'))(5)
-
 # Comparing the RGB images with the classified images
 par(mfrow=c(2, 2))
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
 plot(l_14_c$map , col = magma(65536), axes = F) 
 plot(l_18_c$map , col = rev(magma(65536)), axes = F) 
 # I used the reversed color scale to have the see with the same color
 
 par(mfrow=c(2, 2))
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
 plot(l_14_c$map , col = viridis(5), axes = F) 
 plot(l_18_c$map , col = rev(viridis(5)), axes = F) 
 
 
 
 ################################ TEST .......................................
-
-l_14_c2 <- unsuperClass(l_14, nClasses = 2)
-l_18_c2 <- unsuperClass(l_18, nClasses = 2)
 
 l_14_c3 <- unsuperClass(l_14, nClasses = 3)
 l_18_c3 <- unsuperClass(l_18, nClasses = 3)
@@ -105,13 +108,12 @@ l_18_c4 <- unsuperClass(l_18, nClasses = 4)
 l_14_c5 <- unsuperClass(l_14, nClasses = 5)
 l_18_c5 <- unsuperClass(l_18, nClasses = 5)
 
-par(mfrow=c(2, 2))
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin") 
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")
-plot(l_14_c2$map , col = viridis(2), axes = F) # possible use to measure the cloud cover
-plot(l_18_c2$map , col = viridis(2), axes = F)
+# Personalize the command "par" to build a matrix and plot the images that you need 
+par(mfrow=c(2, 4))
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
 plot(l_14_c3$map , col = viridis(3), axes = F) 
-plot(l_18_c3$map , col = viridis(3), axes = F)
+plot(l_18_c3$map , col = rev(viridis(3)), axes = F)
 plot(l_14_c4$map , col = viridis(4), axes = F) 
 plot(l_18_c4$map , col = viridis(4), axes = F) 
 plot(l_14_c5$map , col = rev(viridis(5)), axes = F) 
@@ -121,8 +123,43 @@ plot(l_18_c5$map , col = rev(viridis(5)), axes = F)
 
 
 
-freq(l_14_c$map)
-freq(l_18_c$map)
+# I use the classification in 2 classes to measure the cloud cover
+l_14_c2 <- unsuperClass(l_14, nClasses = 2)
+l_18_c2 <- unsuperClass(l_18, nClasses = 2)
+
+par(mfrow=c(2, 2))
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
+plot(l_14_c2$map , col = viridis(2), axes = F) 
+plot(l_18_c2$map , col = viridis(2), axes = F)
+
+# I calculate the frequencies of the 2 classes and the NA pixels
+freq(l_14_c2$map)
+freq(l_18_c2$map)
+
+# In the end I calculate the percentage of the cloud cover (class 2)
+clouds_14 <- 926022 / 60149911 * 100
+clouds_18 <- 4367844 / 60071601 * 100
+clouds_14
+clouds_18
+
+# Now do the same thing to measure the water cover
+l_14_c3 <- unsuperClass(l_14, nClasses = 3)
+l_18_c3 <- unsuperClass(l_18, nClasses = 3)
+
+par(mfrow=c(2, 2))
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
+plot(l_14_c3$map , col = viridis(3), axes = F) 
+plot(l_18_c3$map , col = viridis(3), axes = F)
+
+freq(l_14_c3$map)
+freq(l_18_c3$map)
+
+water_14 <- 12674098 / 60149911 * 100
+water_18 <- 8741281 / 60071601 * 100
+water_14
+water_18
 
 # Continua se le immagini lo permettono.............................................
 
@@ -152,16 +189,17 @@ dev.off()
 # DVI = NIR - red
 # DVI (at 16 bit) goes from -65535 to 65535 
 
-dvi_14 = l_14[[5]] - l_14[[4]]
-dvi_18 = l_18[[5]] - l_18[[4]]
+dvi_14 = l_14[[4]] - l_14[[3]]
+dvi_18 = l_18[[4]] - l_18[[3]]
 
 par(mfrow=c(2, 2))
-plotRGB(l_14 ,r=4, g=3, b=2, stretch="lin")
-plotRGB(l_18 ,r=4, g=3, b=2, stretch="lin")  
-plot(dvi_14, col = magma(65536), axes = F)
-plot(dvi_18, col = magma(65536), axes = F)
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin")
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")  
+plot(dvi_14, col = magma(65536), main = "DVI 2014 Dominican Republic", axes = F)
+plot(dvi_18, col = magma(65536), main = "DVI 2018 Dominican Republic", axes = F)
+mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
 
-# Plot to compare the situations od DVI
+# Plot to compare the situations of DVI
 par(mfrow=c(1, 2))
 plot(dvi_14, col = magma(65536), main = "DVI 2014 Dominican Republic", axes = F)
 plot(dvi_18, col = magma(65536), main = "DVI 2018 Dominican Republic", axes = F)
@@ -218,29 +256,3 @@ stdev_18 <- focal(nir_18_agg, matrix(1/25, 5, 5), fun=sd)
 # Plot to see the areas with more or less variability
 plot(stdev_14, col=mako(65536), axes = F)
 plot(stdev_18, col=mako(65536), axes = F)
-
-
-
-
-
-
-
-
-
-####################################################################################
-####################################################################################
-# Choosing of the best Color Scale
-
-par(mfrow=c(2, 3))
-plot(dvi_dif, col = mako(65536), axes = F) 
-plot(dvi_dif, col = inferno(65536), axes = F) 
-plot(dvi_dif, col = plasma(65536), axes = F) 
-plot(dvi_dif, col = magma(65536), axes = F) 
-plot(dvi_dif, col = rocket(65536), axes = F) 
-plot(dvi_dif, col = viridis(65536), axes = F) 
-
-dev.off()
-####################################################################################
-####################################################################################
-
-
