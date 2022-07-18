@@ -57,6 +57,7 @@ mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
 mtext("2014                                                                                                            2018", side = 3, line = -3, outer = T)
 
 
+
 ####################################################################################
 ########################## CLASSIFICATION ##########################################
 ####################################################################################
@@ -122,38 +123,12 @@ clouds_18 <- (3205153 + 2007589) / 60071601 * 100
 clouds_14
 clouds_18
 
-# Now do the same thing to measure the water cover ------------------------------------------------
-l_14_c3 <- unsuperClass(l_14, nClasses = 3)
-l_18_c3 <- unsuperClass(l_18, nClasses = 3)
-
-par(mfrow=c(2, 2))
-plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
-plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
-plot(l_14_c3$map , col = viridis(3), axes = F) 
-plot(l_18_c3$map , col = viridis(3), axes = F)
-
-freq(l_14_c3$map)
-freq(l_18_c3$map)
-
-water_14 <- 12674098 / 60149911 * 100
-water_18 <- 8741281 / 60071601 * 100
+# Now do the same thing to measure the water cover
+# This time, instead, we use class 3 (2014) and class 1 (2018)
+water_14 <- 10015623 / 60149911 * 100
+water_18 <- 8008754 / 60071601 * 100
 water_14
 water_18
-
-# Continua se le immagini lo permettono.............................................
-
-
-
-
-
-
-dev.off()
-
-
-
-
-
-
 
 
 
