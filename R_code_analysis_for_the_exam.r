@@ -116,9 +116,7 @@ mtext("2014                                                                     
 freq(l_14_c4$map)
 freq(l_18_c4$map)
 
-# I assume that the clouds are in class 1 (2014) and in classes 3 and 4 (2018)
-
-# Percentage of the cloud cover (class 2)
+# Percentage of the cloud cover class 1 (2014) and classes 3 and 4 (2018)
 clouds_14 <- 456430 / 60149911 * 100
 clouds_18 <- (3205153 + 2007589) / 60071601 * 100
 clouds_14
