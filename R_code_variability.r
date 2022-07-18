@@ -51,14 +51,12 @@ ggplot() + geom_raster(sd3, mapping = aes(x=x, y=y, fill=layer)) +
 sd7 <- focal(nir, matrix(1/49, 7, 3), fun=sd) # sd = standard deviation
 
 
-
-# Multivariate analysis (19/5)
+ 
 # It' possible to chose the component of the variability
 
 sen <- brick("sentinel_similaun.png")
 # 4 levels, 1 = nir, 2 = red, 3 = green, 4 = control
 ggRGB(sen, 1, 2, 3) # vegetation is red
-
 
 im1 <- ggRGB(sen, 2, 1, 3) # vegetation becomes green and rocks purple
 
