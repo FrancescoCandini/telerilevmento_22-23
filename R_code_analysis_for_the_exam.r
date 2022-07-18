@@ -73,13 +73,15 @@ l_18_c4 <- unsuperClass(l_18, nClasses = 4)
 l_14_c5 <- unsuperClass(l_14, nClasses = 5)
 l_18_c5 <- unsuperClass(l_18, nClasses = 5)
 
-l_14_c
-l_18_c
+# Let's see for example these 
+l_14_c5
+l_18_c5
 
+# Many shades of color are not needed, the min is the number of classes
 par(mfrow=c(1, 2))
-plot(l_14_c$map , col = viridis(65536), axes = F) 
-plot(l_18_c$map , col = viridis(65536), axes = F)
-mtext("Plot with classification ", side = 3, line = -1, outer = T)
+plot(l_14_c5$map , col = viridis(5), axes = F) 
+plot(l_18_c5$map , col = viridis(5), axes = F)
+mtext("Plot with 5 classes", side = 3, line = -1, outer = T)
 
 # Comparing the RGB images with the classified images
 par(mfrow=c(2, 2))
