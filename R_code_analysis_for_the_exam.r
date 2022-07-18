@@ -18,7 +18,7 @@ rimp_14 <- lapply(rlist_14, raster)
 l_14 <- stack(rimp_14) 
 
 # Same process for the images of 2018
-rlist_18 <- list.files(pattern="LC08_L2SP_008047_20180909")
+rlist_18 <- list.files(pattern="LC08_L2SP_008047_20180808")
 rimp_18 <- lapply(rlist_18, raster)
 l_18 <- stack(rimp_18)
 
@@ -45,16 +45,16 @@ plotRGB(l_14 , r=3, g=2, b=1, stretch="lin")
 plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
 plotRGB(l_14 , r=3, g=2, b=1, stretch="hist") 
 plotRGB(l_18 , r=3, g=2, b=1, stretch="hist")
-mtext("Linear stretch", side = 3, line = -1, outer = T)
+mtext("Linear stretch", side = 3, line = -2, outer = T)
 mtext("Histogram stretch", side = 3, line = -19, outer = T)
-mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
+mtext("2014                                                                                                                 2018", side = 3, line = -1, outer = T)
 
 # Plot RGB with NIR in red
 par(mfrow=c(1, 2))
 plotRGB(l_14 , r=4, g=3, b=2, stretch="lin") 
 plotRGB(l_18 , r=4, g=3, b=2, stretch="lin")
 mtext("RGB plot with NIR on red", side = 3, line = -1, outer = T)
-mtext("2014                                                                                                            2018", side = 3, line = -3, outer = T)
+mtext("2014                                                                                                                 2018", side = 3, line = -2, outer = T)
 
 
 
@@ -82,7 +82,8 @@ l_18_c5
 par(mfrow=c(1, 2))
 plot(l_14_c5$map , col = viridis(5), axes = F) 
 plot(l_18_c5$map , col = viridis(5), axes = F)
-mtext("Plot with 5 classes", side = 3, line = -1, outer = T)
+# mtext("Plot with 5 classes", side = 3, line = -1, outer = T)
+mtext("2014                                                                                                                 2018", side = 3, line = -3, outer = T)
 
 # Comparing the RGB images with the classified images
 par(mfrow=c(2, 2))
@@ -90,7 +91,7 @@ plotRGB(l_14 , r=3, g=2, b=1, stretch="lin")
 plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
 plot(l_14_c5$map , col = viridis(5), axes = F) 
 plot(l_18_c5$map , col = rev(viridis(5)), axes = F)
-mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
+mtext("2014                                                                                                                 2018", side = 3, line = -1, outer = T)
 # I used the reversed color scale to have the see with the same color
 
 # Personalize the command "par" to build a matrix and plot the images that you need 
@@ -104,6 +105,7 @@ plot(l_18_c4$map , col = viridis(4), axes = F)
 plot(l_14_c5$map , col = rev(viridis(5)), axes = F) 
 plot(l_18_c5$map , col = rev(viridis(5)), axes = F) 
 
+####################################################################################################
 # Cloud cover
 # I'll use the 4 classes plot 
 par(mfrow=c(2, 2))
@@ -122,11 +124,25 @@ clouds_14 <- 456430 / 60149911 * 100
 clouds_18 <- (3205153 + 2007589) / 60071601 * 100
 clouds_14
 clouds_18
+####################################################################################################
 
-# Now do the same thing to measure the water cover
-# This time, instead, we use class 3 (2014) and class 1 (2018)
-water_14 <- 10015623 / 60149911 * 100
-water_18 <- 8008754 / 60071601 * 100
+# Water cover (see and lakes)
+# I'll use the 4 classes plot 
+par(mfrow=c(2, 2))
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin") 
+plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")
+plot(l_14_c4$map , col = viridis(4), axes = F) 
+plot(l_18_c4$map , col = viridis(4), axes = F)
+mtext("2014                                                                                                                   2018", side = 3, line = -1, outer = T)
+
+# Frequencies of the 4 classes and the NA pixels
+freq(l_14_c4$map)
+freq(l_18_c4$map)
+
+# Percentage of the cloud cover
+# I use class 2 for 2014 and classes 3 for 2018
+water_14 <- 8463771 / 60149911 * 100
+water_18 <- 6166354 / 60149911 * 100
 water_14
 water_18
 
@@ -151,24 +167,24 @@ plotRGB(l_14 , r=3, g=2, b=1, stretch="lin")
 plotRGB(l_18 , r=3, g=2, b=1, stretch="lin")  
 plot(dvi_14, col = magma(65536), main = "DVI 2014 Dominican Republic", axes = F)
 plot(dvi_18, col = magma(65536), main = "DVI 2018 Dominican Republic", axes = F)
-mtext("2014                                                                                                            2018", side = 3, line = -1, outer = T)
+mtext("2014                                                                                                                  2018", side = 3, line = -1, outer = T)
 
 # Plot to compare the situations of DVI
 par(mfrow=c(1, 2))
-plot(dvi_14, col = magma(65536), main = "DVI 2014 Dominican Republic", axes = F)
-plot(dvi_18, col = magma(65536), main = "DVI 2018 Dominican Republic", axes = F)
+plot(dvi_14, col = magma(65536), axes = F)
+plot(dvi_18, col = magma(65536), axes = F)
+mtext("2014                                                                                                                 2018", side = 3, line = -3, outer = T)
 
 # Calculating of the difference in DVI
 
 # dvi_dif = dvi_18 - dvi_14 # warning due to different image extents
 
-# To not have this warning message we can do 
-# a resampling to have the same size and the same extents for both images
+# To not have this warning message we can do a resampling to have the same extents for both images
 dvi_18r <- resample(dvi_18, dvi_14)
 dvi_perfect_dif = dvi_18r - dvi_14
 
 # It's not necessary to use the DVI standardized (NDVI) 
-# because both the images are al 16 bit 
+# because both the images are 16 bit 
 
 # Plot of the difference in DIV 
 plot(dvi_perfect_dif, col = magma(65536), 
@@ -178,13 +194,13 @@ plot(dvi_perfect_dif, col = magma(65536),
 
 
 # Automatic calculation of the spectral indices (RStoolbox needed)
-si_18 <- spectralIndices(l_18, blue=2, green=3, red=4, nir=5)
-# Plot of all possible computable indices, both for naturalists and geologists
-plot(si_18, col = magma(65536))
-
-# Same for 2014
 si_14 <- spectralIndices(l_14, blue=2, green=3, red=4, nir=5)
-plot(si_14) # plot of all possible computable indices, both for naturalists and geologists
+# Plot of all possible computable indices, both for naturalists and geologists
+plot(si_14, col = magma(65536))
+
+# Same for 2018
+si_18 <- spectralIndices(l_18, blue=2, green=3, red=4, nir=5)
+plot(si_18, col = magma(65536))
 
 
 
@@ -197,9 +213,9 @@ plot(si_14) # plot of all possible computable indices, both for naturalists and 
 nir_14 <- l_14[[4]] # dimensions : 7831, 7681, 60149911  (nrow, ncol, ncell)
 nir_18 <- l_18[[4]]
 
-# Aggregate from 30x30 resolution to 150x150 (factor = 4) to make less heavy the next step
-nir_14_agg <- aggregate(nir_14, fact = 5)
-nir_18_agg <- aggregate(nir_18, fact = 5)
+# Aggregate from 30x30 resolution to 90x90 (factor = 3) to make less heavy the next step
+nir_14_agg <- aggregate(nir_14, fact = 3)
+nir_18_agg <- aggregate(nir_18, fact = 3)
 nir_14_agg
 nir_18_agg
 
@@ -208,5 +224,7 @@ stdev_14 <- focal(nir_14_agg, matrix(1/25, 5, 5), fun=sd)
 stdev_18 <- focal(nir_18_agg, matrix(1/25, 5, 5), fun=sd)
 
 # Plot to see the areas with more or less variability
+par(mfrow=c(1, 2))
 plot(stdev_14, col=mako(65536), axes = F)
 plot(stdev_18, col=mako(65536), axes = F)
+mtext("2014                                                                                                            2018", side = 3, line = -3, outer = T)
