@@ -240,8 +240,8 @@ plot(si_14) # plot of all possible computable indices, both for naturalists and 
 
 
 
-nir_14 <- l_14[[5]] # dimensions : 7831, 7681, 60149911  (nrow, ncol, ncell)
-nir_18 <- l_18[[5]]
+nir_14 <- l_14[[4]] # dimensions : 7831, 7681, 60149911  (nrow, ncol, ncell)
+nir_18 <- l_18[[4]]
 
 # Aggregate from 30x30 resolution to 150x150 (factor = 4) to make less heavy the next step
 nir_14_agg <- aggregate(nir_14, fact = 5)
