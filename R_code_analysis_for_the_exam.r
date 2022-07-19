@@ -105,7 +105,6 @@ plot(l_18_c4$map , col = viridis(4), axes = F)
 plot(l_14_c5$map , col = viridis(5), axes = F) 
 plot(l_18_c5$map , col = viridis(5), axes = F) 
 
-
 # Water cover (see and lakes)
 # I'll use the 4 classes plot 
 par(mfrow=c(2, 2))
@@ -125,6 +124,23 @@ water_14 <- 8463771 / 60149911 * 100
 water_18 <- 6166354 / 60149911 * 100
 water_14
 water_18
+
+# To obtain a more plausible values
+
+l_14_c6 <- unsuperClass(l_14, nClasses = 6)
+l_18_c6 <- unsuperClass(l_18, nClasses = 6)
+par(mfrow=c(1, 2))
+plot(l_14_c6$map , col = viridis(6), axes = F) 
+plot(l_18_c6$map , col = viridis(6), axes = F)
+mtext("2014                                                                                                                 2018", side = 3, line = -3, outer = T)
+
+freq(l_14_c6$map)
+freq(l_18_c6$map)
+
+w.cover_14 <- 7957896 / 60149911 * 100
+w.cover_18 <- 6118660 / 60149911 * 100
+w.cover_14
+w.cover_18
 
 
 
@@ -200,8 +216,8 @@ nir_14_agg
 nir_18_agg
 
 # Standard Deviation
-stdev_14 <- focal(nir_14_agg, matrix(1/25, 5, 5), fun=sd)
-stdev_18 <- focal(nir_18_agg, matrix(1/25, 5, 5), fun=sd)
+stdev_14 <- focal(nir_14_agg, matrix(1/49, 7, 7), fun=sd)
+stdev_18 <- focal(nir_18_agg, matrix(1/49, 7, 7), fun=sd)
 
 # Plot to see the areas with more or less variability
 par(mfrow=c(1, 2))
