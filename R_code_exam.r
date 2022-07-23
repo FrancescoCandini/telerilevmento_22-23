@@ -179,8 +179,8 @@ dvi_21 = l_21[[4]] - l_21[[3]]
 par(mfrow=c(2, 2))
 plotRGB(l_14 , r=3, g=2, b=1, stretch="lin")
 plotRGB(l_21 , r=3, g=2, b=1, stretch="lin")  
-plot(dvi_14, col = magma(65536), main = "DVI 2014 Dominican Republic", axes = F)
-plot(dvi_21, col = magma(65536), main = "DVI 2021 Dominican Republic", axes = F)
+plot(dvi_14, col = magma(65536), axes = F)
+plot(dvi_21, col = magma(65536), axes = F)
 mtext("2014                                                                                                                  2021", side = 3, line = -1, outer = T)
 
 # Plot to compare the situations of DVI
@@ -202,7 +202,8 @@ dvi_perfect_dif = dvi_21r - dvi_14
 
 # Plot of the difference in DIV 
 plot(dvi_perfect_dif, col = magma(65536), 
-     main = "DVI difference (2014-2021), Dominican Republic", axes = F)
+     main = "DVI difference (2014-2021),
+     Dominican Republic", axes = F)
 # Higher values mean more vegetation in 2021 then in 2014
 
 
