@@ -243,3 +243,11 @@ par(mfrow=c(1, 2))
 plot(stdev_14, col = mako(65536), axes = F)
 plot(stdev_21, col = mako(65536), axes = F)
 mtext("2014                                                                                                                 2021", side = 3, line = -3, outer = T)
+
+# Compare the st. dev. plots with the RGB plots
+par(mfrow=c(2, 2))
+plotRGB(l_14 , r=3, g=2, b=1, stretch="lin")
+plotRGB(l_21 , r=3, g=2, b=1, stretch="lin")  
+plot(stdev_14, col = mako(65536), axes = F)
+plot(stdev_21, col = mako(65536), axes = F)
+mtext("2014                                                                                                                 2021", side = 3, line = -3, outer = T)
