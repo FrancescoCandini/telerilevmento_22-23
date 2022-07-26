@@ -1,0 +1,93 @@
+% Consiglio: FARSI UNO SCHEMA MENTALE PRIMA DI SCRIVERE LA PRESENTAZIONE
+
+
+\documentclass[]{beamer} % only class to make a presentation
+% https://mpetroff.net/files/beamer-theme-matrix/
+% Matrix to see different combination of styles and colors 
+\usepackage{listings} % we need this only if we insert a code
+\usepackage{color}
+
+% \usefonttheme{structurebold} % https://latex-beamer.com/tutorials/beamer-font/
+
+\usetheme{PaloAlto} % Berkeley PaloAlto Copenhagen Berlin CambridgeUS Darmstadt Warsaw
+\usecolortheme{spruce} 
+% I can insert other combinations  that I like, as a comment, to remember them and change it quickly 
+% spruce crane whale beaver
+
+\title{My first presentation with LaTeX}
+\author[]{Francesco Candini}
+\institute{Alma Mater Studiorum - University of Bologna} % here you can also include the logo
+
+\begin{document}
+
+\maketitle
+
+\AtBeginSection[] % Automatic frame!!!
+{
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents[currentsection, currentsubsection, currentsubsubsection]
+\end{frame}
+}
+
+\section{Introduction} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{My first slide}
+% \frametitle {My first slide} % this is an alternative
+    \begin{itemize}
+        \item Here I insert \textbf{short} a text.
+        \item \pause Maybe with a \textbf{nice organization}. 
+        % "\pause" creates 2 slides with all after the command in the 2nd
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{My first slide with a pic}
+\centering
+\includegraphics[width=0.75\textwidth]{Alamorte.jpg}
+\end{frame}
+
+\begin{frame}{SlIdE}
+\centering
+\includegraphics[width=0.75\textwidth]{Figata.jpg}
+\end{frame}
+
+
+\section{Methods} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Tools} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{My first slide with 2 pics}
+\centering
+\includegraphics[width=0.3\textwidth]{Figata.jpg}
+\includegraphics[width=0.4\textwidth]{Alamorte.jpg}
+\end{frame}
+
+\subsection{Other tools} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{My first slide with 4 pics}
+\centering
+\includegraphics[width=0.3\textwidth]{Figata.jpg}
+\includegraphics[width=0.3\textwidth]{Figata.jpg}
+\\ % starting a new paragraph
+% \bigskip or \smallskip are some alternatives
+\includegraphics[width=0.4\textwidth]{Alamorte.jpg}
+\includegraphics[width=0.4\textwidth]{Alamorte.jpg}
+\end{frame}
+
+
+\section{Results} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{My first slide with a formula}
+\centering
+\includegraphics[width=0.75\textwidth]{image-50072303-dragon-wallpapers'.jpg}
+\smallskip
+\begin{equation} 
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics to assist during the writing
+e^{i \times \pi} + 1 = 0
+\end{equation}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
